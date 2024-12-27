@@ -276,6 +276,26 @@ impl TabsWidget {
                 content = content.replace("{index}", (tab.position + 1).to_string().as_str());
             }
 
+            if content.contains("{custom_index}") {
+                let pos_str = tab.position.clone().to_string();
+
+                content = content.replace(
+                    "{custom_index}",
+                    match tab.position {
+                        0 => "q",
+                        1 => "w",
+                        2 => "e",
+                        3 => "r",
+                        4 => "a",
+                        5 => "s",
+                        6 => "d",
+                        7 => "f",
+                        8 => "y",
+                        _ => pos_str.as_str(),
+                    },
+                );
+            }
+
             if content.contains("{floating_total_count}") {
                 let panes_for_tab: Vec<PaneInfo> =
                     panes.panes.get(&tab.position).cloned().unwrap_or_default();
